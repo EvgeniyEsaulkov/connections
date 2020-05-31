@@ -9,6 +9,14 @@ export default () => (
         <p className="lead">
           A curated list of sport events in your neighborhood.
         </p>
+        <hr className="my-4" />
+        <Link
+          to="/events"
+          className="btn btn-lg custom-button"
+          role="button"
+        >
+          View Events
+        </Link>
       </div>
     </div>
   </div>
