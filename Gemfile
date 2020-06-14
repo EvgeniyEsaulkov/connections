@@ -16,6 +16,7 @@ gem "turbolinks"
 gem "webpacker"
 
 group :development, :test do
+  gem "brakeman"
   gem "byebug"
   gem "rubocop", require: false
   gem "rubocop-rails", require: false
