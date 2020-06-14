@@ -17,6 +17,7 @@ gem "webpacker"
 
 group :development, :test do
   gem "brakeman"
+  gem "bundler-audit"
   gem "byebug"
   gem "rubocop", require: false
   gem "rubocop-rails", require: false
