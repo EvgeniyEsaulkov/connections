@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+set -e
+
+gem install docker-sync
+docker-sync start
