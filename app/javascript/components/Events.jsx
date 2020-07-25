@@ -25,11 +25,11 @@ class Events extends React.Component {
   render() {
     const { events } = this.state;
     const allEvents = events.map((event, index) => (
-      <div key={index} className="col-md-6 col-lg-4">
-        <div className="card mb-4">
-          <div className="card-body">
-            <h5 className="card-title">{event.title}</h5>
-            <Link to={`/event/${event.id}`} className="btn custom-button">
+      <div key={index} className="medium-6 large-4">
+        <div className="card without-border">
+          <div className="card-section">
+            <h5>{event.title}</h5>
+            <Link to={`/event/${event.id}`} className="button custom-button">
               View Event
             </Link>
           </div>
@@ -37,7 +37,7 @@ class Events extends React.Component {
       </div>
     ));
     const noEvent = (
-      <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+      <div className="hero align-items-center justify-content-center">
         <h4>
           No events yet. Why not <Link to="/new_event">create one</Link>
         </h4>
@@ -45,23 +45,23 @@ class Events extends React.Component {
     );
 
     return (
-      <div>
-        <section className="jumbotron jumbotron-fluid text-center">
-          <div className="container py-5">
-            <h1 className="display-4">Events in your neighborhood</h1>
+      <div className="grid-container fluid full-height primary-color">
+        <section className="text-center">
+          <div className="container">
+            <h1>Events in your neighborhood</h1>
           </div>
         </section>
-        <div className="py-5">
-          <main className="container">
-            <div className="text-right mb-3">
-              <Link to="/event" className="btn custom-button">
+        <div className="large-5 medium-5 small-5">
+          <main>
+            <div className="text-right">
+              <Link to="/event" className="button custom-button">
                 Create New Event
               </Link>
             </div>
-            <div className="row">
+            <div className="grid-x">
               {events.length > 0 ? allEvents : noEvent}
             </div>
-            <Link to="/" className="btn btn-link">
+            <Link to="/" className="clear button large">
               Home
             </Link>
           </main>
