@@ -66,33 +66,33 @@ class Event extends React.Component {
     const eventDescription = this.addHtmlEntities(event.description);
 
     return (
-      <div className="">
-        <div className="hero position-relative d-flex align-items-center justify-content-center">
-          <div className="container py-5">
-            <h1 className="">
+      <div className="grid-container fluid primary-color">
+        <div className="hero align-items-center justify-content-center">
+          <div className="container large-5 medium-5 small-5">
+            <h1>
               {event.title}
             </h1>
-            <h4 className="">
+            <h4>
               {event.kind}
             </h4>
           </div>
-          <div className="container py-5">
-            <div className="row">
-              <div className="col-sm-12 col-lg-9">
-                <h5 className="mb-2">Description</h5>
+          <div className="container large-5 medium-5 small-5">
+            <div className="grid-x">
+              <div className="small-12 large-9">
+                <h5>Description</h5>
                 <div
                   dangerouslySetInnerHTML={{
                     __html: `${eventDescription}`
                   }}
                 />
               </div>
-              <div className="col-sm-12 col-lg-3">
-                <button type="button" className="btn btn-danger" onClick={this.deleteEvent}>
+              <div className="small-12 large-3">
+                <button type="button" className="button alert" onClick={this.deleteEvent}>
                   Delete Event
                 </button>
               </div>
             </div>
-            <Link to="/events" className="btn btn-link">
+            <Link to="/events" className="clear button large">
               Back to events
             </Link>
           </div>
