@@ -1,4 +1,4 @@
-class ConnectionsSchema < GraphQL::Schema
+class ApplicationSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 
