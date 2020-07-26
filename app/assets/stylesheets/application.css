@@ -13,6 +13,9 @@
  *= require_tree .
  *= require_self
  */
+main {
+  min-height: 100vh;
+}
 .bg_primary-color {
   background-color: #FFFFFF;
 }
@@ -24,6 +27,12 @@
 }
 .secondary-color {
   color: #293241;
+}
+.full-height {
+  min-height: 100vh;
+}
+.without-border {
+  border: none !important;
 }
 .custom-button.btn {
   background-color: #293241;
