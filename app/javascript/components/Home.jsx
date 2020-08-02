@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default () => (
+const Home = () => (
   <div className="grid-container fluid full-height primary-color">
     <div className="grid-x full-height align-middle secondary-color">
       <div className="large-4 medium-4 small-4 float-center">
@@ -19,3 +19,5 @@ export default () => (
     </div>
   </div>
 );
+
+export default Home;
