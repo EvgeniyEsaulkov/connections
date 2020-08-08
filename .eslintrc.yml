@@ -1,0 +1,20 @@
+env:
+  browser: true
+  es2020: true
+extends:
+  - 'eslint:recommended'
+  - 'plugin:react/recommended'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 11
+  sourceType: module
+plugins:
+  - react
+rules:
+  no-unused-vars: off
+  no-undef: off
+  react/jsx-no-undef: off
+  react/react-in-jsx-scope: off
+settings:
+  import/ignore: ['.css$','node_modules/*']

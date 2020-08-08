@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 class Event extends React.Component {
   constructor(props) {
@@ -101,5 +102,10 @@ class Event extends React.Component {
     );
   }
 }
+
+Event.propTypes = {
+  history: PropTypes.func.isRequired,
+  match: PropTypes.func.isRequired,
+};
 
 export default Event;
