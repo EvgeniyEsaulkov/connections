@@ -28,6 +28,7 @@ global_job_config:
     commands:
       - checkout
       - cache restore
+      - sem-version node 12.3.0
       - sem-version ruby 2.6.5
       - sem-service start postgres
       - ./bin/setup
