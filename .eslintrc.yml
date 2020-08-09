@@ -17,4 +17,6 @@ rules:
   react/jsx-no-undef: off
   react/react-in-jsx-scope: off
 settings:
+  react:
+    version: 'detect'
   import/ignore: ['.css$','node_modules/*']
