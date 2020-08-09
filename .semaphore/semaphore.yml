@@ -22,7 +22,7 @@ global_job_config:
     - name: RAILS_ENV
       value: 'test'
     - name: DATABASE_URL
-      value: 'postgresql://postgres:@0.0.0.0:5432/myapp_test'
+      value: 'postgresql://postgres:@0.0.0.0:5432/myapp_test?encoding=utf8'
 
   prologue:
     commands:
@@ -30,16 +30,10 @@ global_job_config:
       - cache restore
       - sem-version ruby 2.6.5
       - sem-service start postgres
+      - ./bin/setup
+      - cache store
 
 blocks:
-  - name: Setup
-    task:
-      jobs:
-        - name: Bundle
-          commands:
-          - ./bin/setup
-          - cache store
-
   - name: Quality
     task:
       jobs:
