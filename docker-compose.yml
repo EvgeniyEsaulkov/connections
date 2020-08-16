@@ -31,11 +31,10 @@ services:
       - "3000:3000"
     volumes:
       - ruby-bundle:/usr/local/bundle
-      - connections-app-files:/app:nocopy
+      - node-modules:/usr/local/node_modules
     command: bin/docker-entrypoint
 
 volumes:
   ruby-bundle:
+  node-modules:
   db-data:
-  connections-app-files:
-    external: true

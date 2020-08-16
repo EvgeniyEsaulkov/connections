@@ -9,7 +9,9 @@ RUN apk add --update --no-cache \
     postgresql-dev \
     git \
     imagemagick \
-    tzdata
+    tzdata \
+    nodejs \
+    yarn
 
 # Remove bundle config if exist
 RUN rm -f .bundle/config
@@ -34,6 +36,8 @@ RUN bundle install -j4 --retry 3 \
 # Add the Rails app
 COPY . /app/
 
+RUN bin/yarn install
+
 # Remove folders not needed in resulting image
 ARG FOLDERS_TO_REMOVE
 RUN rm -rf $FOLDERS_TO_REMOVE
@@ -48,10 +52,13 @@ RUN apk add --update --no-cache \
     imagemagick \
     tzdata \
     file \
-    git
+    git \
+    nodejs \
+    yarn
 
 # Copy app with gems from former build stage
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
+COPY --from=Builder /usr/local/node_modules/ /usr/local/node_modules/
 COPY --from=Builder /app/ /app/
 
 WORKDIR /app
