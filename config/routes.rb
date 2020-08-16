@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get 'events/index'
-      post 'events/create'
-      get '/show/:id', to: "events#show"
+      get "events/index"
+      post "events/create"
+      get "/show/:id", to: "events#show"
       delete "/destroy/:id", to: "events#destroy"
     end
   end

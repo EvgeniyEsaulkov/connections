@@ -8,7 +8,6 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("jquery")
 require("foundation-sites")
-require("channels")
 
 $(document).on('turbolinks:load', function() {
     Foundation.addToJquery($);
