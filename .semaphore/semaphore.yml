@@ -18,25 +18,50 @@ fail_fast:
     when: 'true'
 
 global_job_config:
-  env_vars:
-    - name: RAILS_ENV
-      value: 'test'
-    - name: DATABASE_URL
-      value: 'postgresql://postgres:@0.0.0.0:5432/myapp_test?encoding=utf8'
-
   prologue:
     commands:
+      - export DOCKER_REPO="docker.pkg.github.com/EvgeniyEsaulkov/connections"
+      - export BUILDER_NAME="${DOCKER_REPO}/builder:${SEMAPHORE_GIT_BRANCH}"
+      - export IMAGE_NAME="${DOCKER_REPO}/final:${SEMAPHORE_GIT_BRANCH}"
+      - export RAILS_ENV="test"
+      - export RACK_ENV="test"
+      - export NODE_ENV="development"
+      - export BUNDLE_WITHOUT="development staging production"
+      - export DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL="true"
+
+      # Authenticate with DockerHub
+      - echo "${DOCKER_PASSWORD}" | docker login https://docker.pkg.github.com -u "${DOCKER_USERNAME}" --password-stdin
+
       - checkout
-      - cache restore
-      - sem-version node 12.3.0
-      - sem-version ruby 2.6.5
-      - sem-service start postgres
-      - ./bin/setup
-      - cache store
 
 blocks:
+  - name: Build
+    task:
+      secrets:
+        - name: github-docker-secrets
+      jobs:
+      - name: Docker build
+        commands:
+          - docker pull "${BUILDER_NAME}" || true
+          - docker pull "${IMAGE_NAME}" || true
+          - docker build -t "${BUILDER_NAME}" --target Builder --cache-from="${BUILDER_NAME}" --build-arg BUNDLE_WITHOUT="${BUNDLE_WITHOUT}" --build-arg BUNDLER_VERSION=2.1.4 .
+          - docker build -t "${IMAGE_NAME}" --target Final --cache-from="${BUILDER_NAME}" --cache-from="${IMAGE_NAME}" --build-arg BUNDLE_WITHOUT="${BUNDLE_WITHOUT}" --build-arg BUNDLER_VERSION=2.1.4 .
+          - docker push "${BUILDER_NAME}"
+          - docker push "${IMAGE_NAME}"
+
+  - name: Run
+    task:
   - name: Quality
     task:
+      secrets:
+        - name: github-docker-secrets
+
+      prologue:
+        commands:
+          - docker pull "${IMAGE_NAME}"
+          - cp docker-compose.linux.yml docker-compose.override.yml
+          - docker-compose up --detach
+
       jobs:
         - name: Quality
           commands:
