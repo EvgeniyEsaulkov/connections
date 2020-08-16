@@ -51,8 +51,6 @@ blocks:
 
   - name: Run
     task:
-  - name: Quality
-    task:
       secrets:
         - name: github-docker-secrets
 
