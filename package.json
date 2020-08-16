@@ -23,6 +23,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "lint": "ln -sf /usr/local/node_modules /app/node_modules && eslint --ext .js,.jsx app/javascript"
+    "lint": "ln -sf /usr/local/node_modules /app/node_modules && /app/node_modules/eslint/bin/eslint.js --ext .js,.jsx app/javascript"
   }
 }
