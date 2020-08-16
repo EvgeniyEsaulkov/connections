@@ -20,7 +20,7 @@ fail_fast:
 global_job_config:
   prologue:
     commands:
-      - export DOCKER_REPO="docker.pkg.github.com/EvgeniyEsaulkov/connections"
+      - export DOCKER_REPO="docker.pkg.github.com/evgeniyesaulkov/connections"
       - export BUILDER_NAME="${DOCKER_REPO}/builder:${SEMAPHORE_GIT_BRANCH}"
       - export IMAGE_NAME="${DOCKER_REPO}/final:${SEMAPHORE_GIT_BRANCH}"
       - export RAILS_ENV="test"
