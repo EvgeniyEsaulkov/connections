@@ -1,0 +1,72 @@
+version: v1.0
+name: Connections
+
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+execution_time_limit:
+  minutes: 15
+
+auto_cancel:
+  queued:
+    when: 'true'
+
+fail_fast:
+  stop:
+    when: 'true'
+
+global_job_config:
+  prologue:
+    commands:
+      - export DOCKER_REPO="docker.pkg.github.com/evgeniyesaulkov/connections"
+      - export BUILDER_NAME="${DOCKER_REPO}/builder:${SEMAPHORE_GIT_BRANCH}"
+      - export IMAGE_NAME="${DOCKER_REPO}/final:${SEMAPHORE_GIT_BRANCH}"
+      - export RAILS_ENV="test"
+      - export RACK_ENV="test"
+      - export NODE_ENV="development"
+      - export BUNDLE_WITHOUT="development staging production"
+      - export DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL="true"
+
+      # Authenticate with DockerHub
+      - echo "${DOCKER_PASSWORD}" | docker login https://docker.pkg.github.com -u "${DOCKER_USERNAME}" --password-stdin
+
+      - checkout
+
+blocks:
+  - name: Build
+    task:
+      secrets:
+        - name: github-docker-secrets
+      jobs:
+      - name: Docker build
+        commands:
+          - docker pull "${BUILDER_NAME}" || true
+          - docker pull "${IMAGE_NAME}" || true
+          - docker build -t "${BUILDER_NAME}" --target Builder --cache-from="${BUILDER_NAME}" --build-arg BUNDLE_WITHOUT="${BUNDLE_WITHOUT}" --build-arg BUNDLER_VERSION=2.1.4 .
+          - docker build -t "${IMAGE_NAME}" --target Final --cache-from="${BUILDER_NAME}" --cache-from="${IMAGE_NAME}" --build-arg BUNDLE_WITHOUT="${BUNDLE_WITHOUT}" --build-arg BUNDLER_VERSION=2.1.4 .
+          - docker push "${BUILDER_NAME}"
+          - docker push "${IMAGE_NAME}"
+
+  - name: Run
+    task:
+      secrets:
+        - name: github-docker-secrets
+
+      prologue:
+        commands:
+          - docker pull "${IMAGE_NAME}"
+          - cp docker-compose.linux.yml docker-compose.override.yml
+          - docker-compose up --detach
+
+      jobs:
+        - name: Quality
+          commands:
+            - ./bin/quality
+
+promotions:
+  - name: Deploy to Heroku
+    pipeline_file: heroku.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'master'"
