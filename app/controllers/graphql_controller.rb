@@ -1,35 +1,29 @@
 class GraphqlController < ApplicationController
-  # If accessing from outside this domain, nullify the session
-  # This allows for outside API access while preventing CSRF attacks,
-  # but you'll have to authenticate your user separately
   protect_from_forgery with: :null_session
 
   def execute
-    variables = ensure_hash(params[:variables])
-    query = params[:query]
-    operation_name = params[:operationName]
-    context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
-    }
-    result = ApplicationSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
-    render json: result
-  rescue => e
+    render json: execute_query
+  rescue StandardError => e
     raise e unless Rails.env.development?
+
     handle_error_in_development e
   end
 
   private
 
-  # Handle form data, JSON body, or a blank value
+  def execute_query
+    ApplicationSchema.execute(
+      params[:query],
+      variables: ensure_hash(params[:variables]),
+      context: {},
+      operation_name: params[:operationName]
+    )
+  end
+
   def ensure_hash(ambiguous_param)
     case ambiguous_param
     when String
-      if ambiguous_param.present?
-        ensure_hash(JSON.parse(ambiguous_param))
-      else
-        {}
-      end
+      ambiguous_param.present? ? ensure_hash(JSON.parse(ambiguous_param)) : {}
     when Hash, ActionController::Parameters
       ambiguous_param
     when nil
@@ -39,10 +33,12 @@ class GraphqlController < ApplicationController
     end
   end
 
-  def handle_error_in_development(e)
-    logger.error e.message
-    logger.error e.backtrace.join("\n")
+  def handle_error_in_development(exception)
+    logger.error exception.message
+    logger.error exception.backtrace.join("\n")
 
-    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+    error = { error: { message: exception.message, backtrace: exception.backtrace }, data: {} }
+
+    render json: error, status: :internal_server_error
   end
 end

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -43,7 +42,7 @@ const eventsLoading = (
   </div>
 );
 
-export default () => (
+const Events = () => (
   <Query query={EVENTS}>
     {({ data, loading }) => (
       <div className="grid-container fluid full-height primary-color">
@@ -73,3 +72,5 @@ export default () => (
     )}
   </Query>
 );
+
+export default Events;
