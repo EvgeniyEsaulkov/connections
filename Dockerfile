@@ -58,7 +58,6 @@ RUN apk add --update --no-cache \
 
 # Copy app with gems from former build stage
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
-COPY --from=Builder /usr/local/node_modules/ /usr/local/node_modules/
 COPY --from=Builder /app/ /app/
 
 WORKDIR /app
