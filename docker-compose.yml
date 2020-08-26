@@ -31,7 +31,7 @@ services:
       - "3000:3000"
     volumes:
       - ruby-bundle:/usr/local/bundle
-      - node-modules:/usr/local/node_modules
+      - node-modules:/app/node_modules
     command: bin/docker-entrypoint
 
 volumes:
