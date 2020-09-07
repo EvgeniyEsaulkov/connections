@@ -1,0 +1,14 @@
+{
+  "data": {
+    "events": [
+      {
+        "id": ":id",
+        "title": "Football game",
+        "kind": "soccer",
+        "startTime": "2020-09-07T14:30:00Z",
+        "endTime": "2020-09-07T16:30:00Z",
+        "location": "'Trudovye rezervy' stadium"
+      }
+    ]
+  }
+}
