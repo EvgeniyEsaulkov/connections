@@ -15,6 +15,8 @@ gem "sass-rails"
 gem "turbolinks"
 gem "webpacker"
 
+gem "graphql"
+
 group :development, :test do
   gem "brakeman"
   gem "bundler-audit"

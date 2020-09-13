@@ -1,51 +1,50 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
-class Events extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      events: []
-    };
+const EVENTS = gql`
+  {
+    events {
+      id
+      title
+    }
   }
+`;
 
-  componentDidMount() {
-    const url = "/api/v1/events/index";
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then(response => this.setState({ events: response }))
-      .catch(() => this.props.history.push("/"));
-  }
-
-  render() {
-    const { events } = this.state;
-    const allEvents = events.map((event, index) => (
-      <div key={index} className="medium-6 large-4">
-        <div className="card without-border">
-          <div className="card-section">
-            <h5>{event.title}</h5>
-            <Link to={`/event/${event.id}`} className="button custom-button">
-              View Event
-            </Link>
-          </div>
+const allEvents = (events) => (
+  events.map((event, index) => (
+    <div key={index} className="medium-6 large-4">
+      <div className="card without-border">
+        <div className="card-section">
+          <h5>{event.title}</h5>
+          <Link to={`/event/${event.id}`} className="button custom-button">
+            View Event
+          </Link>
         </div>
       </div>
-    ));
-    const noEvent = (
-      <div className="hero align-items-center justify-content-center">
-        <h4>
-          No events yet. Why not <Link to="/new_event">create one</Link>
-        </h4>
-      </div>
-    );
+    </div>
+)));
 
-    return (
+const noEvent = (
+  <div className="hero align-items-center justify-content-center">
+    <h4>
+      No events yet. Why not <Link to="/new_event">create one</Link>?
+    </h4>
+  </div>
+);
+
+const eventsLoading = (
+  <div className="hero align-items-center justify-content-center">
+    <h4>
+      Loading events...
+    </h4>
+  </div>
+);
+
+const Events = () => (
+  <Query query={EVENTS}>
+    {({ data, loading }) => (
       <div className="grid-container fluid full-height primary-color">
         <section className="text-center">
           <div className="container">
@@ -60,7 +59,9 @@ class Events extends React.Component {
               </Link>
             </div>
             <div className="grid-x">
-              {events.length > 0 ? allEvents : noEvent}
+              {loading
+                ? eventsLoading
+                : data.events.length > 0 ? allEvents(data.events) : noEvent}
             </div>
             <Link to="/" className="clear button large">
               Home
@@ -68,12 +69,8 @@ class Events extends React.Component {
           </main>
         </div>
       </div>
-    );
-  }
-}
-
-Events.propTypes = {
-  history: PropTypes.func.isRequired,
-};
+    )}
+  </Query>
+);
 
 export default Events;
