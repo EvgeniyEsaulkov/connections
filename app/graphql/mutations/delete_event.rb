@@ -5,11 +5,17 @@ module Mutations
     type Types::MessageType
 
     def resolve(id:)
-      Event.find(id).destroy!
+      event = Event.find_by(id: id)
 
-      {
-        message: "Event was successfully deleted"
-      }
+      if event
+        event.destroy!
+
+        {
+          message: "Event was successfully deleted"
+        }
+      else
+        execution_error(error_data: { message: 'Event not found' })
+      end
     end
   end
 end
