@@ -14,7 +14,7 @@ module Mutations
           message: "Event was successfully deleted"
         }
       else
-        execution_error(error_data: { message: 'Event not found' })
+        execution_error(error_data: { message: "Event not found" })
       end
     end
   end

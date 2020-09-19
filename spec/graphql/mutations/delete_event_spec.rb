@@ -1,15 +1,6 @@
 require "rails_helper"
 
 describe Mutations::DeleteEvent do
-  let!(:event) do
-    create(:event,
-           id: 1_234,
-           title: "Football game",
-           start_time: 2.hours.from_now,
-           end_time: 4.hours.from_now,
-           kind: "soccer",
-           location: "'Trudovye rezervy' stadium")
-  end
   let(:query) do
     <<-GRAPHQL
       mutation {
@@ -18,6 +9,16 @@ describe Mutations::DeleteEvent do
         }
       }
     GRAPHQL
+  end
+
+  before do
+    create(:event,
+           id: 1_234,
+           title: "Football game",
+           start_time: 2.hours.from_now,
+           end_time: 4.hours.from_now,
+           kind: "soccer",
+           location: "'Trudovye rezervy' stadium")
   end
 
   context "with valid ID" do
