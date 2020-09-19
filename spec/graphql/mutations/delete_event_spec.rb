@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Mutations::DeleteEvent do
-  let(:event) do
+  let!(:event) do
     create(:event,
            id: 1_234,
            title: "Football game",

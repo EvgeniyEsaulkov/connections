@@ -64,6 +64,9 @@ blocks:
         - name: Quality
           commands:
             - ./bin/quality
+        - name: Tests
+          commands:
+            - ./bin/tests
 
 promotions:
   - name: Deploy to Heroku
