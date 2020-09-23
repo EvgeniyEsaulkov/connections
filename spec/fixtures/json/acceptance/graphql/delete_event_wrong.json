@@ -1,0 +1,24 @@
+{
+  "data": {
+    "deleteEvent": null
+  },
+  "errors": [
+    {
+      "message": "Event not found",
+      "locations": [
+        {
+          "line": 2,
+          "column": 9
+        }
+      ],
+      "path": [
+        "deleteEvent"
+      ],
+      "extensions": {
+        "detail": null,
+        "status": 422,
+        "code": "unprocessable_entity"
+      }
+    }
+  ]
+}

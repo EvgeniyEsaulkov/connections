@@ -7,6 +7,8 @@
 * `bin/setup` - build Docker image and prepare DB
 * `bin/server` - to run server locally
 * `bin/docker-sync` - install docker-sync library to speed up performance on Mac OSX
+* `bin/quality` - runs quality tools
+* `bin/tests` - runs RSpec tests
 
 ### Bootstrap and run application
 

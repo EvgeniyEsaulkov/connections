@@ -21,6 +21,9 @@ group :development, :test do
   gem "brakeman"
   gem "bundler-audit"
   gem "byebug"
+  gem "factory_bot_rails"
+  gem "ffaker"
+  gem "rspec-rails"
   gem "rubocop", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
@@ -31,4 +34,9 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen"
   gem "web-console"
+end
+
+group :test do
+  gem "database_cleaner-active_record"
+  gem "simplecov", require: false
 end

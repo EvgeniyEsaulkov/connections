@@ -1,0 +1,7 @@
+{
+  "data": {
+    "deleteEvent": {
+      "message": "Event was successfully deleted"
+    }
+  }
+}

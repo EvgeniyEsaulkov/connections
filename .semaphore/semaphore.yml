@@ -64,6 +64,10 @@ blocks:
         - name: Quality
           commands:
             - ./bin/quality
+        - name: Tests
+          commands:
+            - docker-compose exec app bin/rails db:create db:schema:load
+            - ./bin/tests
 
 promotions:
   - name: Deploy to Heroku
