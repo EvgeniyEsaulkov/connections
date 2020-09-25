@@ -9,6 +9,8 @@ gem "rails", "~> 6.0.3"
 
 # all other gems
 gem "bootsnap", require: false
+gem "devise"
+gem "graphql-auth", git: "https://github.com/simonfranzen/graphql-auth.git", branch: "rails6"
 gem "jbuilder"
 gem "puma"
 gem "sass-rails"

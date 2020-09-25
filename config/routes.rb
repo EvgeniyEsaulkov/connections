@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "/*path", to: "home#index"
+
+  devise_for :users, skip: :all
 end
