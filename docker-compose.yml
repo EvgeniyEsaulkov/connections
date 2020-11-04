@@ -19,6 +19,9 @@ services:
       - RACK_ENV
       - NODE_ENV
       - DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL
+      - JWT_SECRET_KEY
+      - DEVISE_MAILER_FROM
+      - DEFAULT_URL
     build:
       context: .
       args:

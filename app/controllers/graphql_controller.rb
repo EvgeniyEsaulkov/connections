@@ -17,7 +17,7 @@ class GraphqlController < ApplicationController
     ApplicationSchema.execute(
       params[:query],
       variables: ensure_hash(params[:variables]),
-      context: {},
+      context: context,
       operation_name: params[:operationName]
     )
   end
