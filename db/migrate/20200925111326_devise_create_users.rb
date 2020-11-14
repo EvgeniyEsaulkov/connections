@@ -13,10 +13,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.datetime :last_sign_in_at
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
-      t.string   :confirmation_token
-      t.datetime :confirmed_at
-      t.datetime :confirmation_sent_at
-      t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Refresh token for JWT auth
       t.string   :refresh_token
@@ -26,7 +22,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
-    add_index :users, :confirmation_token,   unique: true
     add_index 'users', ['refresh_token'], name: 'index_users_on_refresh_token', unique: true, using: :btree
 
   end
