@@ -1,7 +1,6 @@
 GraphQL::Auth.configure do |config|
   config.token_lifespan = 4.hours
   config.jwt_secret_key = ENV["JWT_SECRET_KEY"]
-  # config.app_url = ENV['APP_URL']
 
   config.user_type = "::Types::UserType"
 

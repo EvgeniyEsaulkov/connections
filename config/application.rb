@@ -36,8 +36,5 @@ module Connections
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-
-    # devise uses this for default from options
-    config.action_mailer.default_options = { from: ENV['DEVISE_MAILER_FROM'] }
   end
 end
