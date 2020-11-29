@@ -13,7 +13,7 @@ const Home = () => (
           className="button large custom-button"
           role="button"
         >
-          View Events
+          View events
         </Link>
       </div>
     </div>
