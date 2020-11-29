@@ -1,6 +1,7 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client"
 import { isLoggedInVar } from "../utils/apollo"
+import PropTypes from 'prop-types';
 
 const SIGNIN_EVENT = gql`
   mutation SignIn($email: String!, $password: String!, $remember_me: Boolean) {
@@ -122,5 +123,8 @@ class LoginForm extends React.Component {
       </div>
     );
   }
-};
+}
 
+LoginForm.propTypes = {
+  login: PropTypes.func
+};

@@ -32,8 +32,8 @@ const getToken = () =>
 const token = getToken();
 const setTokenForOperation = async operation => {
   // get the auth token from local storage if it exists
-  const authToken = localStorage.getItem('authToken');;
-  const refreshToken = localStorage.getItem('refreshToken');;
+  const authToken = localStorage.getItem('authToken');
+  const refreshToken = localStorage.getItem('refreshToken');
 
   return operation.setContext({
     headers: {
