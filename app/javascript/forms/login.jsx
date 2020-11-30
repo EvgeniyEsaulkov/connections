@@ -44,20 +44,13 @@ export default function Login() {
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', remember_me: true };
+    this.state = { email: '', password: '', remember_me: false };
     this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  _getQueryVariables() {
-    const email = this.state.email;
-    const password = this.state.password;
-    const remember_me = this.state.remember_me;
-    return { email, password, remember_me }
   }
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.value;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
     this.setState({
@@ -109,6 +102,17 @@ class LoginForm extends React.Component {
                         value={this.state.password}
                         onChange={this.handleInputChange} />
                     </label>
+                  </div>
+                </div>
+                <div className="grid-x grid-padding-x">
+                  <div className="cell">
+                    <input
+                      id="remember_me_checkbox"
+                      name="remember_me"
+                      type="checkbox"
+                      checked={this.state.remember_me}
+                      onChange={this.handleInputChange} />
+                    <label htmlFor="remember_me_checkbox">Remember me</label>
                   </div>
                 </div>
                 <div className="grid-x grid-padding-x">
