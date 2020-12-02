@@ -30,7 +30,9 @@ export default function Login() {
     SIGNIN_EVENT,
     {
       onCompleted({ signIn }) {
-        isLoggedInVar(true);
+        if (signIn.success === true) {
+          isLoggedInVar(true);
+        }
       }
     }
   );
