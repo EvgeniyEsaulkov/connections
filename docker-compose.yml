@@ -15,6 +15,7 @@ services:
     image: ${IMAGE_NAME}
     environment:
       - DATABASE_URL=postgres://postgres:password@db
+      - ENABLE_BOOTSNAP=false
       - RAILS_ENV
       - RACK_ENV
       - NODE_ENV
