@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { Query, Mutation } from 'react-apollo'
+import { Query, Mutation } from '@apollo/client/react/components'
 import gql from 'graphql-tag'
 
 const EVENT_QUERY = gql`

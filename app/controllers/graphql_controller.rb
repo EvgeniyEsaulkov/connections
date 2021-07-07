@@ -1,5 +1,7 @@
 class GraphqlController < ApplicationController
-  protect_from_forgery with: :null_session
+  include Graphql::AuthHelper
+
+  skip_before_action :verify_authenticity_token
 
   def execute
     render json: execute_query
@@ -15,7 +17,7 @@ class GraphqlController < ApplicationController
     ApplicationSchema.execute(
       params[:query],
       variables: ensure_hash(params[:variables]),
-      context: {},
+      context: context,
       operation_name: params[:operationName]
     )
   end

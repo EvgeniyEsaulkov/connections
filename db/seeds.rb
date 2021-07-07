@@ -21,3 +21,5 @@ end
     description: "Do you want to play soccer this weekend? Join us!"
   )
 end
+
+User.create(first_name: "Darth", last_name: "Vader", email: "darth.vader@example.com", password: "12345678")

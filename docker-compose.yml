@@ -15,10 +15,12 @@ services:
     image: ${IMAGE_NAME}
     environment:
       - DATABASE_URL=postgres://postgres:password@db
+      - ENABLE_BOOTSNAP=false
       - RAILS_ENV
       - RACK_ENV
       - NODE_ENV
       - DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL
+      - JWT_SECRET_KEY
     build:
       context: .
       args:
